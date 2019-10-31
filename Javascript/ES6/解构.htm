@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+	<head>
+		<title>解构</title>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	</head>
+	<body>
+		<script>
+		//数组解构
+		let [a,b]=[3,4];
+		console.log("a="+a+";b="+b);
+		let [c=1,d]=[undefined,4];	//let [c=1,d]=[null,4]，赋值为null时默认值不起效
+		console.log("c="+c+";d="+d);	
+		let [e,f,[g,h]]=[1,2,[3,4]];//嵌套
+		console.log("e="+e+";f="+f+";g="+g+";h="+h);
+
+		//对象解构
+		let {a1,b1,c1,d1} = {a1:0,b1:"aa",c1:true,d1:undefined};
+		console.log("a1="+a1+";b1="+b1+";c1="+c1+";d1="+d1);
+
+		let {e1=5,f1:f1,g1,h1} = {e1:undefined,f1:"aa",g1:true,h1:undefined};//默认值
+		console.log("e1="+e1+";f1="+f1+";g1="+g1+";h1="+h1);
+
+		let {abs,sin, cos } = Math;//匹配系统对象
+		console.log(sin(100));
+
+
+		//字符串解构
+		let [s1,,s3,s4] = "Hello";
+		console.log("s1="+s1+";s3="+s3+";s4="+s4);
+		let {length : len,"4":s5} = 'hello';
+		console.log("len="+len+";s5="+s5);
+
+
+		//函数参数解构
+		function add([x=1,y,z]){
+			return x+y+z;
+		}
+		console.log(add([,2,3]));
+		let func = ([x,y,z])=>x+y+z;//箭头函数加解构
+		console.log(func([5,6,7]));
+
+		//总结下，解构基于对象的属性进行赋值和设定默认值，用起来很方便下面是一些常见使用
+
+
+		//1、交换变量
+		let [x,y]=[1,2];
+		[x,y] = [y,x];
+		console.log("x="+x+";y="+y);
+
+		//2、函数返回多个值然后赋值
+		function ret(){
+			return [a,b,c];
+		}
+		
+		function ret(){
+			return {
+				a:0,
+				b:1,
+				c:2
+			};
+		}
+		//...赋值语句略
+
+		//3、提取Json
+		let json = [
+		{
+			id: 42,
+			status: "OK",
+			data: [867, 5309]
+		},
+		{
+			id: 4,
+			status: "NO",
+			data: [1, 4]
+		}
+		];
+		json.forEach(function(item,index){
+			let {id,status,data:[x,y]} = item;
+			console.log("第"+index+"条数据:"+id+status+(x+y));
+		});
+
+
+		//region 关于解构的效率问题，找个常用的json解构试下，please LOOK下面的代码
+		let testJson =[];
+		for(let i=0;i<1000000;i++){
+			testJson.push({
+				id:i,
+				name:"JACK"+i,
+				isMan:true,
+				threeDimen:[i+10,i*99,i+6]
+			});
+		}
+
+		function processUsual(arr){
+			for(let i=0,len=arr.length;i<len;i++) {
+				let id= arr[i].id;
+				let name = arr[i].name;
+				let threeDimen = arr[i].threeDimen;
+				let x = threeDimen[0];
+				let y = threeDimen[1];
+				let z = threeDimen[2];
+			}
+		}
+
+		function processJG(arr){
+			for(let i=0,len=arr.length;i<len;i++) {
+				let {id,name,threeDimen,threeDimen:[x,y,z]}= arr[i];
+			}
+		}
+		let start =+new Date();
+		processJG(testJson);
+		let end =+new Date();
+		console.log("processJG耗时"+(end-start)+"ms");
+
+		let start1 =+new Date();
+		processUsual(testJson);
+		let end1 =+new Date();
+		console.log("processUsual耗时"+(end1-start1)+"ms");
+		/*
+		10000000 processJG耗时29ms  processUsual耗时16ms
+		1000000  processJG耗时20ms  processUsual耗时17ms
+		100000  processJG耗时7ms processUsual耗时4ms
+		10000  processJG耗时8ms   processUsual耗时3ms
+		emoji -,差别没那么大，解构性能损耗可以接受，为啥不用。but 10000000条数据处理起来这么快的么???
+		*/
+
+		
+		//end region
+		
+
+
+		//end  其他有趣的用法，未完待续
+		</script>
+		<script>
+
+		</script>
+	</body>
+</html>

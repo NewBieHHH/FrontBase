@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">    
+    <title>Inherit</title>
+    <style>
+       
+    </style>
+</head>
+<body>            
+
+<script>
+
+	//声明父类A
+	function A(name,sex){
+		this.name = name;
+		this.sex = sex;
+	}
+	
+	A.prototype.showName = function () {
+		return this.name+"-"+this.sex;
+	}
+	
+	
+	
+	//拷贝式继承
+	
+	function B1(name,sex,age) {
+		A.call(this,name,sex);
+		this.age = age;
+	}
+	
+	copy(B1.prototype, A.prototype);
+	
+	B1.prototype.showAge = function(){
+		return this.age;
+	}
+	
+	// 拷贝   
+	function copy(child,parent) {
+		for ( var attr in parent ) {
+			child[attr] = parent[attr];
+		}
+	}
+	
+	// 类式继承（构造函数继承）   构造函数继承） call + new + 中间对象（F） 有new
+	function B2(name,sex,age) {
+		A.call(this,name,sex);
+		this.age = age;
+	}
+	
+	var F1 = function (){};
+	F1.prototype = A.prototype;
+	B2.prototype = new F1();
+	
+	//B2.prototype.constructor = B2;
+	B2.prototype.showAge = function(){
+		return this.age;
+	}
+	
+	function B3(name,sex,age) {
+		A.call(this,name,sex);
+		this.age = age;
+	}
+	B3.prototype = new A();
+	//B3.prototype.constructor = B2;
+	B3.prototype.showAge = function(){
+		return this.age;
+	}
+	
+	//Obejct.Create实际上封装了上述方法，可以取代
+	/*Obejct.Create = function(o){
+		var F1 = function (){};
+		F1.prototype = o.prototype;
+		return new F1();
+	}*/
+	
+	
+	//ES6 extend关键字
+	class ES6A{
+		constructor(name,sex){
+			this.name = name;
+			this.sex = sex;
+			
+		}
+		
+		showName(){
+			return this.name+"-"+this.sex;
+		}
+		
+	}
+	
+	class ES6B extends ES6A{
+		constructor(name,sex,age){
+			super(name,sex);
+			this.age = age;
+		}
+		
+		showName(){
+			return super.showName();
+		}
+		
+		showAge(){
+			return this.age;
+		}
+	}
+	
+	
+	
+	//测试
+	var a1 = new A('张三','男');
+	console.log(a1.showName());   // 张三
+	var b1 = new B1('李四', '女',23);
+	console.log(b1.showName());   // 李四
+	console.log(b1.showAge());    // 23
+	var b2 = new B2('李四', '女',23);
+	console.log(b2.showName());   // 李四
+	console.log(b2.showAge());    // 23
+	console.log(F1);
+	var b3 = new B3('李四', '女',23);
+	console.log(b3.showName());   // 李四
+	console.log(b3.showAge());    // 23
+	
+	let es6a = new ES6A('张三','男');
+	console.log("ES6:",es6a.showName());   // 张三
+	let es6b = new ES6B('李四','女',23);
+	console.log("ES6:",es6b.showName());   // 李四
+	console.log("ES6:",es6b.showAge());    // 23
+</script>
+</body>
+</html>

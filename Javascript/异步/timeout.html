@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">    
+    <title>Inherit</title>
+    <style>
+       
+    </style>
+</head>
+<body>            
+
+<script>
+	//在循环里执行异步任务,同步代码先执行,异步后执行,不管时间多多短
+	for(var i = 0;i<43999;i++){
+		console.log('first');
+		setTimeout(function(){
+			console.log('second');
+		},5)
+	}
+
+	//换成let,韩式同步代码先执行,但是let的作用域导致i常驻内存,也可以用闭包方式实现
+	for(let i = 0;i<400;i++){
+		console.log('first');
+		setTimeout(function(){
+			console.log(i);
+		},5)
+	}
+</script>
+</body>
+</html>

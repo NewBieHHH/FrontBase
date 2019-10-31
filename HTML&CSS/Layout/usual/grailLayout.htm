@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<title>圣杯布局</title>
+		<meta charset="utf-8">
+		<style>
+			.header{width: 100%;height: 40px;background-color: darkseagreen;}
+			.container{ 
+				height:200px;
+				overflow:hidden;
+				padding: 0 200px;
+			}
+			.middle{width: 100%;height: 200px; background-color: deeppink;float:left;}
+			.left{ 
+				width: 200px;
+				height: 200px;
+				background-color: blue;
+				float:left;
+				margin-left:-100%;
+				position: relative; 
+				left: -200px;
+			}
+			.right{
+				width: 200px;
+				height: 200px;
+				background-color: darkorchid;
+				float:left;
+				margin-left:-200px;
+				position: relative; 
+				right: -200px;
+			}
+			.footer{
+				width: 100%; 
+				height: 40px;
+				background-color: darkslategray;
+			}
+			h4{
+				margin:0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="header"><h4>Header内容区</h4></div>
+		<div class="container">
+			<div class="middle">
+				<p>三栏并没有在父元素的一行显示，就是因为中间盒子我们给了百分之百的宽度。所有左右两个盒子才会被挤下来。
+	那么如何让它们呈现出一行三列的效果呢？那就要让左边的盒子要到中间盒子的最左边，右边的盒子到中间盒子的最右边。换个想法，如果中间盒子不是100%的宽度，那么按照文档流，左边的盒子一定会在中间盒子的后面显示，接着显示右边的盒子。但是现在中间盒子是满屏了的，所以左右两个盒子被挤到下一行显示。我们要做到的是让左右两个盒子都上去。此时，CSS的负边距(negative margin)该上阵了。
+				</p>
+			</div> 
+			<div class="left"><h4>左边栏</h4></div> 
+			<div class="right"><h4>右边栏</h4></div>
+		</div>
+		<div class="footer"><h4>Footer内容区</h4></div>
+	</body>	
+<html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">    
+    <title>prompt</title>
+	<style>
+		ul{
+			width:254px;/*边框宽度*/
+			padding-left:0px;
+			margin-top:0px;
+		}
+		input{
+			width:250px;
+			
+		}
+		
+		li{
+			list-style:none;
+			line-height:1.5em;
+			background-color:rgb(77, 73, 73);
+			padding:2px;
+			color: #fff;
+		}
+		
+		li:hover{
+			background-color: rgb(39, 37, 37);
+		}
+
+		.hightLight-green{ /*绿色*/
+			color:green;
+			font-weight:bolder;
+		}
+	</style>
+</head>
+<body>   
+<form>     
+	<div class="wrapper">
+    	<input id="search-input" type="text" placeholder="请输入" />
+		<ul id="search-wrapper" class="search-sug"></ul>
+	</div>
+</form>	
+<script>
+	var  postfixList = ["小刘-编号-89757", '小马-编号-94333', '刘kk-18771052669'];
+	var ul = document.querySelector("#search-wrapper");
+	var searchInput = document.querySelector("#search-input");
+	//获取用户输入，生成提示框中的提示内容，将提示内容添加到search-wrapper中
+	searchInput.oninput = function() {
+		clearPrompt();
+		var content = makePrompt();
+		addPrompt(content);
+	}
+
+	
+	//获取用户输入
+	function getInput() {
+		return searchInput.value;    
+	}
+
+	//生成提示框中的提示内容
+	function makePrompt() {
+		var li,arrLi=[],input = getInput();
+		if(!input || !input.trim()){
+			return [];
+		}
+		//遍历postfixList,把用户输入和每一个postfix进行匹配
+		postfixList.forEach(function(item,index){
+			var li = document.createElement("li");
+			
+			//如果包含input内容
+			if(item.indexOf(input)>-1){
+				li.innerHTML = item.replace(input,"<span class='hightLight-green'>"+input+"</span>");
+				ul.append(li);
+			}
+
+			//
+			if(index ==  0){
+
+			}
+		});
+		return arrLi;
+	}
+	
+	//将提示内容添加到提示框中
+	function addPrompt(content) {
+		var ul = document.querySelector("#search-wrapper");
+		content.forEach(function(li){
+			ul.append(li);
+		});
+	}
+
+	//点击提示框内容并将其放入输入框，清除提示框内容
+	ul.onclick = function(event) {
+		var e = event||window.event, //标准为event,ie为window.event
+		  source = e.target || e.srcElement;//标准为target,ie为srcElement
+		if(source.nodeName.toLowerCase() == "li"){
+			searchInput.value = source.innerText;
+			clearPrompt();
+		}
+		e.stopPropagation();
+	};
+
+	
+	//清空提示框内容
+	function clearPrompt() {
+		var ul = document.querySelector("#search-wrapper");
+		ul.innerHTML = "";
+	}
+
+	//控制提示框的显示/隐藏状态
+	function controllShow() {
+		if (getInput()) 
+		{
+			showPrompt();
+			
+		} else {
+			hidePrompt();
+		}
+	}
+
+	//隐藏提示框
+	function showPrompt() {
+		var ul = document.querySelector("#search-wrapper");
+		ul.style.display='none';
+	}
+
+	//显示提示框
+	function hidePrompt() {
+		var ul = document.querySelector("#search-wrapper");
+		ul.style.display='block';
+	}
+	
+</script>
+</body>
+</html>

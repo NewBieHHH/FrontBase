@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+	<head>
+		<title>let and const</title>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	</head>
+	<body>
+		<script>
+			/*let基本用法:
+			1、声明对象,与var类似，但稍有不同
+			2、let会形成暂时性死区,不会形成变量提升
+			3、let会有块级作用域
+			*/
+			
+			//for+定时器循环
+			for(var i = 0;i<10;i++){
+				setTimeout(function(){
+					console.log("var声明:"+i);//结果10次输出10
+				},0);
+			}
+			console.log('var声明i的for循环结束');
+
+			//let+定时器循化
+			for(let i = 0;i<10;i++){
+				setTimeout(function(){
+					console.log("let声明:"+i);//可以输出1-9
+				},0);
+			}
+			console.log('let声明i的for循环结束');
+
+			//用var实现 let的效果，有两种，一种采用立即执行函数，一种采用try catch
+			for(var i = 0;i<10;i++){
+				(function(i){
+						setTimeout(function(){
+						console.log("var声明+闭包:"+i);//结果10次输出10
+					},0);
+				})(i);
+				
+			}
+			console.log('var声明i的for循环结束，添加了闭包');
+
+
+			for(var i = 0;i<10;i++){
+				try{
+					throw(i);
+				}catch(j){
+						setTimeout(function(){
+						console.log("var声明+try catch:"+j);//结果10次输出10
+					},0);
+				};
+				
+			}
+			console.log('var声明i的for循环结束，添加了try catch:');
+			
+		</script>
+		<script>
+
+		</script>
+	</body>
+</html>

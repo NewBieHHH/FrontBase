@@ -1,0 +1,185 @@
+/*universal class*/
+.img_send{
+	background-image:url('images/send.png');
+}
+
+.img_rocket{
+	background-image:url('images/rocket.png');
+}
+
+.img_game{
+	background-image:url('images/game.png');
+}
+
+.img_addlink{
+	background-image:url('images/addlink.png');
+}
+
+.img_search{
+	background-image:url('images/search.png');
+}
+
+.btn{
+	width:80px;
+	height:80px;
+	border:none;
+}
+
+.black-font{
+	color:#ADADAD;
+}
+
+.clearfix{
+	overflow:auto;
+}
+
+.right_icon {
+	float:right;
+	margin-right:20px;
+}
+
+
+body{
+	margin:0;
+}
+
+#left{
+	float:left;
+	width:100px;
+	height:600px;
+	background-color:#1d2531;
+	text-align:center;
+}
+
+
+#right{
+	margin-left:100px;
+	height:600px;
+}
+
+/*menu css*/
+#menu{
+	width:250px;
+	background-color:#222c3c;
+	height:600px;
+	position:absolute;
+	color:#ffffff;
+}
+
+.item li{
+	list-style-type:none;
+	line-height:2em;
+}
+
+.remind{
+	border-radius:20px 20px 20px 20px;
+	background-color:#2197f0;
+	color:#ffffff;
+	width:3em;
+	text-align:center;
+}
+
+
+
+.item  a{
+	color:#ffffff;
+	text-decoration:none;
+	display:block;
+}
+
+.item  a:hover{
+	color:#2197f0;
+}
+
+.item img{
+	vertical-align:middle;
+}
+
+
+/*content css*/
+#content{
+	margin-left:250px;
+	height:600px;
+}
+
+#head{
+	padding:10px;
+	height:80px;
+}
+
+#contacts{
+	width:42%;
+	float:left;
+	border: 1px solid #ADADAD;
+	height:500px;
+	overflow:auto;
+}
+
+#records{
+	margin-left:42%;
+	border: 1px solid #ADADAD;
+	height:500px
+}
+
+/*content head*/
+h1{
+	width:40%;
+	margin:0;
+}
+
+#userInfo{
+	width:200px;
+	height:100px;
+}
+
+#userInfo > p{
+	display:inline-block;
+	vertical-align:middle;
+}
+
+#userInfo > img{
+	vertical-align:middle;
+}
+
+#search{
+	padding:10px;
+	border:1px solid #ADADAD;
+}
+
+#search input{
+	height:30px;
+	width:80%;
+}
+
+#search img{
+	border:none;
+	height:28px;
+	width:30px;
+	vertical-align:middle;
+	position:relative;
+	left:-36px;
+	top:0px;
+}
+
+.list{
+	height:120px;
+	padding:5px;
+	border-bottom:1px solid #ADADAD;
+}
+
+.list div{
+	height:50px;
+}
+
+.top img{
+	vertical-align:middle;
+}
+.top p{
+	vertical-align:middle;
+	display:inline-block;
+	width:80%;
+}
+
+.distance{
+	float:right;
+}
