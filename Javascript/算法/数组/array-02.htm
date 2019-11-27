@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">    
+    <title>组合求和</title>
+</head>
+<body>        
+    <script>
+		/**
+	* @param {number[]} candidates
+	* @param {number} target
+	* @return {number[][]}
+	*/
+	function selectTwoTarget(arr,target){
+		var hashArr={},ret=[];
+		for(var i = 0,len = arr.length;i<len;i++){
+			var tmp = target-arr[i];
+			if(hashArr[tmp]!==undefined){
+				return [arr[i],tmp];
+				
+			}
+			hashArr[arr[i]] = i;
+		}
+		//return ret;
+	}
+
+	function selectThreeTarget(arr,target){
+		var hashArr=[],ret=[];
+		for(var i = 0,len = arr.length;i<len;i++){
+			var tmpTarget = target-arr[i];
+			var tmp = selectTwoTarget(arr,tmpTarget)
+			if(tmp){
+				ret.push(tmp.concat([arr[i]]));
+			}
+		}
+		return ret;
+	}
+	
+	var twoSum = function(nums, target) {
+		let tempMap = new Map()
+		for(let i = 0,len = nums.length;i<len;i++){
+			let tmp = target-nums[i];
+			if(tempMap.get(tmp)!==undefined){
+				return [i,tempMap.get(tmp)];
+
+			}
+			tempMap.set(nums[i],i)
+		}
+		return []
+	};
+	//Test
+	var inArr = [2,3,5,7,8,0,4,10,15,19],target= 12;
+	console.log("两元素返回值:",twoSum(inArr,target));
+	//console.log("三元素返回值:",selectThreeTarget(inArr,target));
+    </script>
+</body>
+</html>

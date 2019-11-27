@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+	<head>
+		<title>发布订阅者模式</title>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	</head>
+	<body>
+        <p></p>
+		<script>
+            var Event = (function(){
+                var clientList = {},listen,trigger,remove;
+
+                //订阅动作
+                listen = function(key,fn){
+                    if(!clientList[key]){
+                        clientList[key] = []
+                    }
+                    clientList[key].push(fn)
+                };
+
+                //发布到订阅者手中
+                trigger = function(){
+                    var key = Array.prototype.shift.call(arguments),fns = clientList[ key ];
+                    if(!fns || fns.length <= 0) return
+                    for(var i=0;i<fns.length;i++){
+                        fns[i].apply(this,arguments)
+                    }
+                }
+                return {
+                    listen:listen,
+                    trigger:trigger
+                }
+            })()
+
+            //测试
+            Event.listen('loginSuccess',function(sub){
+                console.log(sub+"开始登录了！")
+            })
+            Event.trigger('loginSuccess','Alex')
+            Event.trigger('loginSuccess','Jack')
+		</script>
+	</body>
+</html>

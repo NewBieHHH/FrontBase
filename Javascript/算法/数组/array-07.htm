@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">    
+    <title>拿到唯一数字</title>
+</head>
+<body>        
+    <script>
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number[]}
+ */
+var intersect = function(nums1, nums2) {
+    var i=0,j=0,newArr= []
+    while(i < nums1.length){
+		j = 0
+        while(j < nums2.length){
+            if(nums1[i] === nums2[j]){
+                newArr.push(nums1[i])
+                nums1.splice(i,1)
+                nums2.splice(j,1)
+				i--
+				break
+            }else{
+                j++
+            }
+        }
+       i++
+    }
+    return newArr
+};
+console.log(intersect([1,2,2,1],[2,2]))
+    </script>
+</body>
+</html>

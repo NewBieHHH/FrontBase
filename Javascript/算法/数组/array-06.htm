@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">    
+    <title>拿到唯一数字</title>
+</head>
+<body>        
+    <script>
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var singleNumber = function(nums) {
+    var right = nums.length-1
+    while(right > 0){
+        if(nums[0] === nums[right]){
+            nums.splice(right,1)
+            nums.shift();
+            right = nums.length-1
+        }else{
+			right -- 
+		}
+    }
+    return nums[right]
+};
+console.log(singleNumber([2,2,1]))
+    </script>
+</body>
+</html>

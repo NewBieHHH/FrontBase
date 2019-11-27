@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+	<head>
+		<title>let and const</title>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		
+	</head>
+	<body>
+		<div><button id="btn">刷新数据</button><button id="btn">加载数据</button></div>
+		
+		<script>
+			function handleUser(res){
+				console.log(res)
+			}
+			function Ajax(url){
+				var script = document.createElement("script");
+				script.src = url;
+				document.body.appendChild(script);
+			}
+			var btn = document.getElementById("btn")
+			btn.addEventListener("click",function(){
+				Ajax('./api.json?callback=handleUser')
+			})
+		</script>
+	</body>
+</html>

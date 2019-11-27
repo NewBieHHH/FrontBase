@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">    
+    <title>排序数组去重</title>
+</head>
+<body>        
+    <script>
+	/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var removeDuplicates = function(nums) {
+    var len = nums.length
+    for (var i = 1; i < len; i++) {
+        if(nums[i-1] === nums[i]){
+            nums.splice(i,1)
+            len--
+            i--
+        }
+    }
+    return len
+};
+
+var removeDuplicates2 = function(nums) {
+    var cursor = 0;
+    for (var i = 1; i < nums.length; i++) {
+        if (nums[cursor] !== nums[i]) {
+            nums[++cursor] = nums[i];
+        }
+    }
+    return cursor + 1;
+};
+	//Test
+	var arr = [1,1,2]
+	console.log('数组长度:'+removeDuplicates2(arr)+'\n新数组:'+arr);
+    </script>
+</body>
+</html>

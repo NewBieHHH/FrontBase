@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+	<head>
+		<title>闭包</title>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	</head>
+	<body>
+		<script>
+		/*Javascript允许使用内部函数---即函数定义和函数表达式位于另一个函数的函数体内。
+		而且，这些内部函数可以访问它们所在的外部函数中声明的所有局部变量、参数和声明的其他内部函数。
+		当其中一个这样的内部函数在包含它们的外部函数之外被调用时，就会形成闭包。*/
+		
+		//最普通闭包
+		var A = function(){
+			var a = 12
+			function B(){
+				console.log(a+1);
+			}
+			B();
+		}
+		A();
+		
+		//函数工厂
+		function makeSale(percent){
+			return function(total){
+				return total*percent
+			}
+		}
+		var halfOff = makeSale(0.5)
+		var nineSale = makeSale(0.9)
+		console.log('五折:'+halfOff(100))
+		console.log('九折:'+nineSale(100))
+		
+		//实现面向对象的封装功能
+		var account = (function(){
+			var money = 10000
+			return {
+				getValue:function(){
+					console.log(this.money);
+				},
+				transferMoney:function(to,num){
+					money-=num;
+					console.log((new Date()).toLocaleDateString()+'转给了'+to+num+'元钱,卡上余额为'+money+'元');
+				},
+				saveMoney:function(num){
+					money+=num
+					console.log((new Date()).toLocaleDateString()+'存了'+num+'元钱,卡上余额为'+money+'元');
+				},
+			}
+		
+		})()
+		account.transferMoney('李先生',100);
+		account.saveMoney(100000);
+		</script>
+	</body>
+</html>
